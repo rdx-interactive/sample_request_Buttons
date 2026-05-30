@@ -1,0 +1,328 @@
+.saw-sample-request-form {
+	margin: var(--saw-button-form-margin, 16px 0 0 0);
+	clear: both;
+	display: block;
+	width: 100%;
+}
+
+.saw-product-info-download-form {
+	margin: var(--saw-download-form-margin, 12px 0 0 0);
+	clear: both;
+	display: block;
+	width: 100%;
+}
+
+.saw-sample-request-form.saw-align-left {
+	text-align: left;
+}
+
+.saw-product-info-download-form.saw-align-left {
+	text-align: left;
+}
+
+.saw-sample-request-form.saw-align-center {
+	text-align: center;
+}
+
+.saw-product-info-download-form.saw-align-center {
+	text-align: center;
+}
+
+.saw-sample-request-form.saw-align-right {
+	text-align: right;
+}
+
+.saw-product-info-download-form.saw-align-right {
+	text-align: right;
+}
+
+.saw-sample-request-form.saw-align-stretch .saw-sample-request-button {
+	width: 100%;
+	justify-content: center;
+}
+
+.saw-product-info-download-form.saw-align-stretch .saw-product-info-download-button {
+	width: 100%;
+	justify-content: center;
+}
+
+.saw-honeypot {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.saw-sample-request-button,
+.saw-product-info-download-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--saw-button-icon-gap, 8px);
+	min-width: var(--saw-button-min-width, auto);
+	width: var(--saw-button-width, auto);
+	min-height: var(--saw-button-min-height, 42px);
+	padding: var(--saw-button-padding, 12px 18px);
+	border-color: var(--saw-button-border-color, #1f2937);
+	border-style: var(--saw-button-border-style, solid);
+	border-width: var(--saw-button-border-width, 1px);
+	border-radius: var(--saw-button-border-radius, 4px);
+	background: var(--saw-button-bg-color, #1f2937);
+	color: var(--saw-button-text-color, #ffffff);
+	font-family: var(--saw-button-font-family, inherit);
+	font-size: var(--saw-button-font-size, inherit);
+	font-weight: var(--saw-button-font-weight, inherit);
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saw-product-info-download-button {
+	--saw-button-bg-color: var(--saw-download-bg-color, transparent);
+	--saw-button-text-color: var(--saw-download-text-color, #1f2937);
+	--saw-button-border-color: var(--saw-download-border-color, #1f2937);
+	--saw-button-hover-bg-color: var(--saw-download-hover-bg-color, #1f2937);
+	--saw-button-hover-text-color: var(--saw-download-hover-text-color, #ffffff);
+	--saw-button-hover-border-color: var(--saw-download-hover-border-color, #1f2937);
+}
+
+.saw-default-form {
+	--saw-button-form-margin: 12px 0 0 0;
+}
+
+.saw-default-download-form {
+	--saw-download-form-margin: 12px 0 0 0;
+}
+
+.saw-default-button {
+	--saw-button-min-width: 220px;
+	text-transform: none;
+}
+
+.saw-default-download-button {
+	--saw-button-min-width: 220px;
+	text-transform: none;
+}
+
+.saw-sample-request-button:hover,
+.saw-sample-request-button:focus,
+.saw-product-info-download-button:hover,
+.saw-product-info-download-button:focus {
+	background: var(--saw-button-hover-bg-color, #111827);
+	border-color: var(--saw-button-hover-border-color, #111827);
+	color: var(--saw-button-hover-text-color, #ffffff);
+}
+
+.saw-button-content {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--saw-button-icon-gap, 8px);
+}
+
+.saw-button-content svg {
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
+.saw-button-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+.saw-sample-product-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 24px;
+	width: 100%;
+}
+
+.saw-sample-product-card {
+	padding: 18px;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	background: #ffffff;
+	min-width: 0;
+}
+
+.saw-sample-product-image {
+	display: block;
+	margin: 0 0 14px;
+	text-decoration: none;
+}
+
+.saw-sample-product-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.saw-sample-product-title {
+	margin: 0 0 8px;
+	font-size: 18px;
+	line-height: 1.3;
+}
+
+.saw-sample-product-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.saw-sample-product-excerpt {
+	margin: 0 0 14px;
+	line-height: 1.5;
+}
+
+.saw-grid-product-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.saw-grid-buttons-stacked {
+	flex-direction: column;
+}
+
+.saw-grid-buttons-inline {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.saw-grid-buttons-align-stretch {
+	align-items: stretch;
+}
+
+.saw-grid-buttons-align-left {
+	align-items: flex-start;
+}
+
+.saw-grid-buttons-align-center {
+	align-items: center;
+}
+
+.saw-grid-buttons-align-right {
+	align-items: flex-end;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-left {
+	justify-content: flex-start;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-center {
+	justify-content: center;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-right {
+	justify-content: flex-end;
+}
+
+.saw-grid-buttons-align-stretch .saw-grid-sample-form,
+.saw-grid-buttons-align-stretch .saw-grid-view-product-button {
+	width: 100%;
+}
+
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-sample-form,
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-sample-button,
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-view-product-button {
+	width: auto;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-stretch .saw-grid-sample-form,
+.saw-grid-buttons-inline.saw-grid-buttons-align-stretch .saw-grid-view-product-button {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.saw-grid-sample-form {
+	margin: 0;
+}
+
+.saw-grid-sample-button,
+.saw-grid-view-product-button {
+	width: 100%;
+}
+
+.saw-grid-view-product-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 42px;
+	padding: 12px 18px;
+	border: 1px solid #1f2937;
+	border-radius: 4px;
+	background: transparent;
+	color: #1f2937;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saw-grid-view-product-button:hover,
+.saw-grid-view-product-button:focus {
+	background: #1f2937;
+	border-color: #1f2937;
+	color: #ffffff;
+}
+
+@media (max-width: 900px) {
+	.saw-sample-product-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 600px) {
+	.saw-sample-product-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.saw-editor-notice {
+	padding: 12px;
+	border: 1px dashed #9ca3af;
+	border-radius: 4px;
+	color: #374151;
+	background: #f9fafb;
+	font-size: 13px;
+}
+
+.saw-sample-popup {
+	position: fixed;
+	z-index: 999999;
+	right: 24px;
+	bottom: 24px;
+	max-width: min(360px, calc(100vw - 32px));
+	padding: 14px 18px;
+	border-radius: 6px;
+	background: #111827;
+	color: #ffffff;
+	box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.35;
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.saw-sample-popup.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+	.saw-sample-popup {
+		right: 16px;
+		bottom: 16px;
+		left: 16px;
+		max-width: none;
+		text-align: center;
+	}
+}
