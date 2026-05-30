@@ -3,7 +3,7 @@
  * Plugin Name: Sample Available for WooCommerce
  * Plugin URI: https://example.com/sample-available-for-woocommerce
  * Description: Adds a Sample Available product setting, a frontend Request a Sample button, and an Elementor widget with style controls.
- * Version: 1.0.18
+ * Version: 1.0.13
  * Author: Codex
  * Author URI: https://example.com
  * Text Domain: sample-available-for-woocommerce
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SAW_VERSION', '1.0.18' );
+define( 'SAW_VERSION', '1.0.13' );
 define( 'SAW_PLUGIN_FILE', __FILE__ );
 define( 'SAW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SAW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

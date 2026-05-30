@@ -197,11 +197,11 @@ class SAW_Product_Info_Elementor_Widget extends \Elementor\Widget_Base {
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
-				array(
-					'name'     => 'typography',
-					'selector' => '{{WRAPPER}} .saw-product-info-elementor-button, {{WRAPPER}} .saw-product-info-elementor-button .saw-button-text, {{WRAPPER}} .saw-product-info-elementor-button .elementor-button-text',
-				)
-			);
+			array(
+				'name'     => 'typography',
+				'selector' => '{{WRAPPER}} .saw-product-info-elementor-button',
+			)
+		);
 
 		$this->add_responsive_control(
 			'icon_spacing',
@@ -321,13 +321,11 @@ class SAW_Product_Info_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-product-info-elementor-button' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-product-info-elementor-button' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-product-info-elementor-button svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -383,13 +381,11 @@ class SAW_Product_Info_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-product-info-elementor-button:hover, {{WRAPPER}} .saw-product-info-elementor-button:focus' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button:hover .saw-button-text, {{WRAPPER}} .saw-product-info-elementor-button:focus .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button:hover .elementor-button-text, {{WRAPPER}} .saw-product-info-elementor-button:focus .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-product-info-elementor-button:hover svg, {{WRAPPER}} .saw-product-info-elementor-button:focus svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-product-info-elementor-button:hover, {{WRAPPER}} .saw-product-info-elementor-button:focus' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-product-info-elementor-button:hover svg, {{WRAPPER}} .saw-product-info-elementor-button:focus svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -523,9 +519,9 @@ class SAW_Product_Info_Elementor_Widget extends \Elementor\Widget_Base {
 			$settings['selected_icon'],
 			array(
 				'aria-hidden' => 'true',
-					'class'       => 'saw-button-icon elementor-button-icon',
-				)
-			);
+				'class'       => 'saw-button-icon',
+			)
+		);
 
 		return ob_get_clean();
 	}

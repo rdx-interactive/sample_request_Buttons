@@ -172,11 +172,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
-				array(
-					'name'     => 'typography',
-					'selector' => '{{WRAPPER}} .saw-elementor-button, {{WRAPPER}} .saw-elementor-button .saw-button-text, {{WRAPPER}} .saw-elementor-button .elementor-button-text',
-				)
-			);
+			array(
+				'name'     => 'typography',
+				'selector' => '{{WRAPPER}} .saw-elementor-button',
+			)
+		);
 
 		$this->add_responsive_control(
 			'icon_spacing',
@@ -296,13 +296,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-elementor-button' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-elementor-button' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-elementor-button svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -358,13 +356,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-elementor-button:hover, {{WRAPPER}} .saw-elementor-button:focus' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button:hover .saw-button-text, {{WRAPPER}} .saw-elementor-button:focus .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button:hover .elementor-button-text, {{WRAPPER}} .saw-elementor-button:focus .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-button:hover svg, {{WRAPPER}} .saw-elementor-button:focus svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-elementor-button:hover, {{WRAPPER}} .saw-elementor-button:focus' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-elementor-button:hover svg, {{WRAPPER}} .saw-elementor-button:focus svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -426,11 +422,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
-				array(
-					'name'     => 'download_typography',
-					'selector' => '{{WRAPPER}} .saw-elementor-download-button, {{WRAPPER}} .saw-elementor-download-button .saw-button-text, {{WRAPPER}} .saw-elementor-download-button .elementor-button-text',
-				)
-			);
+			array(
+				'name'     => 'download_typography',
+				'selector' => '{{WRAPPER}} .saw-elementor-download-button',
+			)
+		);
 
 		$this->add_responsive_control(
 			'download_icon_spacing',
@@ -550,13 +546,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-elementor-download-button' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-elementor-download-button' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-elementor-download-button svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -612,13 +606,11 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'sample-available-for-woocommerce' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-					'selectors' => array(
-						'{{WRAPPER}} .saw-elementor-download-button:hover, {{WRAPPER}} .saw-elementor-download-button:focus' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button:hover .saw-button-text, {{WRAPPER}} .saw-elementor-download-button:focus .saw-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button:hover .elementor-button-text, {{WRAPPER}} .saw-elementor-download-button:focus .elementor-button-text' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .saw-elementor-download-button:hover svg, {{WRAPPER}} .saw-elementor-download-button:focus svg' => 'fill: {{VALUE}};',
-					),
-				)
+				'selectors' => array(
+					'{{WRAPPER}} .saw-elementor-download-button:hover, {{WRAPPER}} .saw-elementor-download-button:focus' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .saw-elementor-download-button:hover svg, {{WRAPPER}} .saw-elementor-download-button:focus svg' => 'fill: {{VALUE}};',
+				),
+			)
 		);
 
 		$this->add_control(
@@ -732,9 +724,9 @@ class SAW_Elementor_Widget extends \Elementor\Widget_Base {
 			$settings[ $setting_key ],
 			array(
 				'aria-hidden' => 'true',
-					'class'       => 'saw-button-icon elementor-button-icon',
-				)
-			);
+				'class'       => 'saw-button-icon',
+			)
+		);
 
 		return ob_get_clean();
 	}

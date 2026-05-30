@@ -77,10 +77,7 @@ final class SAW_Plugin {
 		add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'render_default_product_button' ), 20 );
 		add_action( 'wp_loaded', array( $this, 'maybe_add_sample_to_cart' ), 20 );
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'force_sample_price' ), 20 );
-		add_filter( 'woocommerce_is_purchasable', array( $this, 'allow_placeholder_purchase' ), 20, 2 );
-		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'allow_sample_add_to_cart_validation' ), 9999, 6 );
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'filter_cart_item_name' ), 10, 3 );
-		add_filter( 'woocommerce_cart_item_thumbnail', array( $this, 'filter_cart_item_thumbnail' ), 10, 3 );
 		add_filter( 'woocommerce_get_item_data', array( $this, 'add_cart_item_display_data' ), 10, 2 );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 10, 4 );
 		add_shortcode( 'saw_sample_button', array( $this, 'render_sample_button_shortcode' ) );
@@ -1326,7 +1323,6 @@ final class SAW_Plugin {
 
 		if ( $icon_classes ) {
 			$icon_classes[] = 'saw-button-icon';
-			$icon_classes[] = 'elementor-button-icon';
 
 			return '<i class="' . esc_attr( implode( ' ', array_unique( $icon_classes ) ) ) . '" aria-hidden="true"></i>';
 		}
@@ -1335,7 +1331,7 @@ final class SAW_Plugin {
 			return '';
 		}
 
-		return '<span class="saw-button-icon saw-button-icon-text elementor-button-icon" aria-hidden="true">' . esc_html( sanitize_text_field( $atts['icon_text'] ) ) . '</span>';
+		return '<span class="saw-button-icon saw-button-icon-text" aria-hidden="true">' . esc_html( sanitize_text_field( $atts['icon_text'] ) ) . '</span>';
 	}
 
 	/**
@@ -1383,7 +1379,6 @@ final class SAW_Plugin {
 			'icon_position'   => 'before',
 			'style'           => '',
 			'wrapper_style'   => '',
-			'return_url'      => '',
 		);
 		$args     = wp_parse_args( $args, $defaults );
 
@@ -1401,23 +1396,18 @@ final class SAW_Plugin {
 		$icon_html   = $this->sanitize_icon_html( $args['icon_html'] );
 		$before_icon = 'before' === $args['icon_position'] ? $icon_html : '';
 		$after_icon  = 'after' === $args['icon_position'] ? $icon_html : '';
-		$return_url  = ! empty( $args['return_url'] ) ? esc_url_raw( $args['return_url'] ) : $this->get_current_request_url();
-		$form_action = $return_url ? wp_validate_redirect( $return_url, '' ) : '';
 
 		ob_start();
 		?>
-		<form method="post" action="<?php echo esc_url( $form_action ); ?>" class="<?php echo esc_attr( implode( ' ', $form_classes ) ); ?>" style="<?php echo esc_attr( $args['wrapper_style'] ); ?>">
+		<form method="post" class="<?php echo esc_attr( implode( ' ', $form_classes ) ); ?>" style="<?php echo esc_attr( $args['wrapper_style'] ); ?>">
 			<?php wp_nonce_field( 'saw_add_sample_' . $product_id, 'saw_sample_nonce' ); ?>
 			<input type="hidden" name="saw_product_id" value="<?php echo esc_attr( $product_id ); ?>">
-			<?php if ( $return_url ) : ?>
-				<input type="hidden" name="saw_return_url" value="<?php echo esc_url( $return_url ); ?>">
-			<?php endif; ?>
 			<input type="hidden" name="saw_sample_action" value="add_sample_request">
 			<input type="text" name="saw_company_website" value="" class="saw-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 			<button type="submit" name="saw_add_sample_to_cart" value="1" class="<?php echo esc_attr( implode( ' ', $button_classes ) ); ?>" style="<?php echo esc_attr( $args['style'] ); ?>">
-				<span class="saw-button-content elementor-button-content-wrapper">
+				<span class="saw-button-content">
 					<?php echo $before_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					<span class="saw-button-text elementor-button-text"><?php echo esc_html( $args['label'] ); ?></span>
+					<span class="saw-button-text"><?php echo esc_html( $args['label'] ); ?></span>
 					<?php echo $after_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</span>
 			</button>
@@ -1478,9 +1468,9 @@ final class SAW_Plugin {
 		?>
 		<div class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" style="<?php echo esc_attr( $args['wrapper_style'] ); ?>">
 			<a href="<?php echo esc_url( $pdf_url ); ?>" class="<?php echo esc_attr( implode( ' ', $button_classes ) ); ?>" style="<?php echo esc_attr( $args['style'] ); ?>" download>
-				<span class="saw-button-content elementor-button-content-wrapper">
+				<span class="saw-button-content">
 					<?php echo $before_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					<span class="saw-button-text elementor-button-text"><?php echo esc_html( $args['label'] ); ?></span>
+					<span class="saw-button-text"><?php echo esc_html( $args['label'] ); ?></span>
 					<?php echo $after_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</span>
 			</a>
@@ -1643,48 +1633,14 @@ final class SAW_Plugin {
 	 * @return string
 	 */
 	private function get_sample_return_url( $product ) {
-		$posted_return_url = isset( $_POST['saw_return_url'] ) ? esc_url_raw( wp_unslash( $_POST['saw_return_url'] ) ) : '';
-		$args              = array( 'saw_sample_added' => '1' );
-		$remove_args       = array( 'add-to-cart', 'quantity', 'saw_sample_added' );
-
-		if ( $posted_return_url ) {
-			$validated_return_url = wp_validate_redirect( $posted_return_url, '' );
-
-			if ( $validated_return_url ) {
-				return add_query_arg( $args, remove_query_arg( $remove_args, $validated_return_url ) );
-			}
-		}
-
 		$referer = wp_get_referer();
+		$args    = array( 'saw_sample_added' => '1' );
 
 		if ( $referer ) {
-			return add_query_arg( $args, remove_query_arg( $remove_args, $referer ) );
+			return add_query_arg( $args, remove_query_arg( array( 'add-to-cart', 'quantity', 'saw_sample_added' ), $referer ) );
 		}
 
 		return add_query_arg( $args, get_permalink( $product->get_id() ) );
-	}
-
-	/**
-	 * Get the current frontend request URL.
-	 *
-	 * @return string
-	 */
-	private function get_current_request_url() {
-		$host = isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '';
-		$uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-
-		if ( ! $host || ! $uri ) {
-			return '';
-		}
-
-		$host = preg_replace( '/[^a-zA-Z0-9\.\-:\[\]]/', '', (string) $host );
-		$uri  = preg_replace( '/[\x00-\x1F\x7F]/', '', (string) $uri );
-
-		if ( ! $host || ! $uri ) {
-			return '';
-		}
-
-		return esc_url_raw( ( is_ssl() ? 'https://' : 'http://' ) . $host . $uri );
 	}
 
 	/**
@@ -1765,7 +1721,7 @@ final class SAW_Plugin {
 	private function get_placeholder_product_id() {
 		$stored_id = absint( get_option( self::PLACEHOLDER_OPTION ) );
 
-		if ( $stored_id && $this->is_valid_placeholder_product( $stored_id ) ) {
+		if ( $stored_id && 'product' === get_post_type( $stored_id ) ) {
 			return $stored_id;
 		}
 
@@ -1797,105 +1753,6 @@ final class SAW_Plugin {
 	}
 
 	/**
-	 * Check whether an existing placeholder product is usable for cart requests.
-	 *
-	 * @param int $product_id Product ID.
-	 * @return bool
-	 */
-	private function is_valid_placeholder_product( $product_id ) {
-		$product_id = absint( $product_id );
-
-		if ( ! $product_id || 'product' !== get_post_type( $product_id ) || ! function_exists( 'wc_get_product' ) ) {
-			return false;
-		}
-
-		$product = wc_get_product( $product_id );
-
-		if ( ! $product instanceof WC_Product ) {
-			return false;
-		}
-
-		if ( 'publish' !== $product->get_status() || ! $product->is_type( 'simple' ) ) {
-			return false;
-		}
-
-		if ( 'yes' !== $product->get_meta( '_saw_placeholder_product' ) ) {
-			return false;
-		}
-
-		$this->prepare_placeholder_product( $product );
-
-		return true;
-	}
-
-	/**
-	 * Keep the placeholder product in a purchasable zero-cost state.
-	 *
-	 * @param WC_Product $product Product object.
-	 * @return void
-	 */
-	private function prepare_placeholder_product( $product ) {
-		if ( ! $product instanceof WC_Product ) {
-			return;
-		}
-
-		$needs_save = false;
-		$updates    = array(
-			'catalog_visibility' => 'hidden',
-			'virtual'            => true,
-			'regular_price'      => '0',
-			'price'              => '0',
-			'sold_individually'  => false,
-			'manage_stock'       => false,
-			'stock_status'       => 'instock',
-		);
-
-		if ( 'hidden' !== $product->get_catalog_visibility() ) {
-			$product->set_catalog_visibility( $updates['catalog_visibility'] );
-			$needs_save = true;
-		}
-
-		if ( ! $product->get_virtual() ) {
-			$product->set_virtual( $updates['virtual'] );
-			$needs_save = true;
-		}
-
-		if ( '0' !== (string) $product->get_regular_price() ) {
-			$product->set_regular_price( $updates['regular_price'] );
-			$needs_save = true;
-		}
-
-		if ( '0' !== (string) $product->get_price() ) {
-			$product->set_price( $updates['price'] );
-			$needs_save = true;
-		}
-
-		if ( $product->get_sold_individually() ) {
-			$product->set_sold_individually( $updates['sold_individually'] );
-			$needs_save = true;
-		}
-
-		if ( $product->get_manage_stock() ) {
-			$product->set_manage_stock( $updates['manage_stock'] );
-			$needs_save = true;
-		}
-
-		if ( 'instock' !== $product->get_stock_status() ) {
-			$product->set_stock_status( $updates['stock_status'] );
-			$needs_save = true;
-		}
-
-		if ( 'yes' !== $product->get_meta( '_saw_placeholder_product' ) ) {
-			$product->update_meta_data( '_saw_placeholder_product', 'yes' );
-			$needs_save = true;
-		}
-
-		if ( $needs_save ) {
-			$product->save();
-		}
-	}
-
-	/**
 	 * Keep sample request cart items free.
 	 *
 	 * @param WC_Cart $cart Cart object.
@@ -1911,64 +1768,6 @@ final class SAW_Plugin {
 				$cart_item['data']->set_price( 0 );
 			}
 		}
-	}
-
-	/**
-	 * Allow the hidden placeholder product to be purchased only during verified sample requests.
-	 *
-	 * @param bool       $purchasable Whether the product is purchasable.
-	 * @param WC_Product $product     Product object.
-	 * @return bool
-	 */
-	public function allow_placeholder_purchase( $purchasable, $product ) {
-		if ( $product instanceof WC_Product && 'yes' === $product->get_meta( '_saw_placeholder_product' ) && $this->is_current_sample_request_submission() ) {
-			return true;
-		}
-
-		return $purchasable;
-	}
-
-	/**
-	 * Keep third-party add-to-cart rules from blocking the plugin's validated sample request item.
-	 *
-	 * @param bool  $passed         Validation result.
-	 * @param int   $product_id     Product ID.
-	 * @param int   $quantity       Quantity.
-	 * @param int   $variation_id   Variation ID.
-	 * @param array $variations     Variation data.
-	 * @param array $cart_item_data Cart item data.
-	 * @return bool
-	 */
-	public function allow_sample_add_to_cart_validation( $passed, $product_id, $quantity = 1, $variation_id = 0, $variations = array(), $cart_item_data = array() ) {
-		if ( empty( $cart_item_data['saw_is_sample_request'] ) || ! $this->is_current_sample_request_submission() || absint( $product_id ) !== absint( get_option( self::PLACEHOLDER_OPTION ) ) ) {
-			return $passed;
-		}
-
-		$product = wc_get_product( $product_id );
-
-		if ( ! $product instanceof WC_Product || 'yes' !== $product->get_meta( '_saw_placeholder_product' ) ) {
-			return $passed;
-		}
-
-		if ( ! $passed && function_exists( 'wc_clear_notices' ) ) {
-			wc_clear_notices();
-		}
-
-		return true;
-	}
-
-	/**
-	 * Check whether the current request is a verified sample add-to-cart submission.
-	 *
-	 * @return bool
-	 */
-	private function is_current_sample_request_submission() {
-		$submit     = isset( $_POST['saw_add_sample_to_cart'] ) ? absint( wp_unslash( $_POST['saw_add_sample_to_cart'] ) ) : 0;
-		$action     = isset( $_POST['saw_sample_action'] ) ? sanitize_text_field( wp_unslash( $_POST['saw_sample_action'] ) ) : '';
-		$product_id = isset( $_POST['saw_product_id'] ) ? absint( wp_unslash( $_POST['saw_product_id'] ) ) : 0;
-		$nonce      = isset( $_POST['saw_sample_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['saw_sample_nonce'] ) ) : '';
-
-		return (bool) ( $submit && 'add_sample_request' === $action && $product_id && wp_verify_nonce( $nonce, 'saw_add_sample_' . $product_id ) );
 	}
 
 	/**
@@ -1992,29 +1791,7 @@ final class SAW_Plugin {
 	}
 
 	/**
-	 * Replace the placeholder thumbnail with the original product featured image.
-	 *
-	 * @param string $thumbnail     Cart item thumbnail HTML.
-	 * @param array  $cart_item     Cart item data.
-	 * @param string $cart_item_key Cart item key.
-	 * @return string
-	 */
-	public function filter_cart_item_thumbnail( $thumbnail, $cart_item, $cart_item_key ) {
-		if ( empty( $cart_item['saw_is_sample_request'] ) || empty( $cart_item['saw_source_product_id'] ) ) {
-			return $thumbnail;
-		}
-
-		$product = wc_get_product( absint( $cart_item['saw_source_product_id'] ) );
-
-		if ( ! $product instanceof WC_Product || ! $product->get_image_id() ) {
-			return $thumbnail;
-		}
-
-		return $product->get_image( 'woocommerce_thumbnail' );
-	}
-
-	/**
-	 * Add original product sample data to the cart line item display.
+	 * Add original product details to the cart line item display.
 	 *
 	 * @param array $item_data Cart item data for display.
 	 * @param array $cart_item Cart item.
@@ -2029,6 +1806,13 @@ final class SAW_Plugin {
 			$item_data[] = array(
 				'key'   => __( 'SKU', 'sample-available-for-woocommerce' ),
 				'value' => esc_html( $cart_item['saw_source_product_sku'] ),
+			);
+		}
+
+		if ( ! empty( $cart_item['saw_source_product_details'] ) ) {
+			$item_data[] = array(
+				'key'   => __( 'Product Details', 'sample-available-for-woocommerce' ),
+				'value' => esc_html( $cart_item['saw_source_product_details'] ),
 			);
 		}
 
@@ -2086,10 +1870,8 @@ final class SAW_Plugin {
 
 		require_once SAW_PLUGIN_DIR . 'includes/class-saw-elementor-widget.php';
 		require_once SAW_PLUGIN_DIR . 'includes/class-saw-product-info-elementor-widget.php';
-		require_once SAW_PLUGIN_DIR . 'includes/class-saw-sample-product-grid-elementor-widget.php';
 
 		$widgets_manager->register( new SAW_Elementor_Widget() );
 		$widgets_manager->register( new SAW_Product_Info_Elementor_Widget() );
-		$widgets_manager->register( new SAW_Sample_Product_Grid_Elementor_Widget() );
 	}
 }

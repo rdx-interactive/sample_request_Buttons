@@ -1,6 +1,6 @@
 # Security Notes
 
-Version: 1.0.18
+Version: 1.0.13
 
 This plugin is intentionally small and does not make remote requests or execute dynamic code. Product PDFs are selected from the WordPress media library and validated as PDF attachments before display. Sample requests are protected with:
 
@@ -9,7 +9,6 @@ This plugin is intentionally small and does not make remote requests or execute 
 - A per-user or per-IP rate limit of 8 sample requests per product per 10 minutes.
 - Capability checks before saving the product admin checkbox.
 - PDF MIME validation before saving and rendering Product Info downloads.
-- Sample cart validation overrides are limited to verified plugin sample request submissions.
 - Sanitized request input and escaped frontend/admin output.
 - A hidden zero-cost WooCommerce placeholder product so sample requests do not alter source product inventory or price.
 
