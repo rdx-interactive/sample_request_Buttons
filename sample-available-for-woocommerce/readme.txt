@@ -1,5 +1,6 @@
 === Sample Available for WooCommerce ===
 Contributors: codex
+Developer: RDX Interactive, Cochin
 Tags: woocommerce, elementor, sample request, product button
 Requires at least: 6.0
 Tested up to: 6.8
