@@ -136,6 +136,194 @@
 	line-height: 1;
 }
 
+.saw-sample-product-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 24px;
+	width: 100%;
+}
+
+.saw-sample-product-card {
+	padding: 18px;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	background: #ffffff;
+	min-width: 0;
+}
+
+.saw-sample-product-image {
+	display: block;
+	margin: 0 0 14px;
+	text-decoration: none;
+}
+
+.saw-sample-product-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.saw-sample-product-title {
+	margin: 0 0 8px;
+	font-size: 18px;
+	line-height: 1.3;
+}
+
+.saw-sample-product-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.saw-sample-product-excerpt {
+	margin: 0 0 14px;
+	line-height: 1.5;
+}
+
+.saw-grid-product-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.saw-grid-buttons-stacked {
+	flex-direction: column;
+}
+
+.saw-grid-buttons-inline {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.saw-grid-buttons-align-stretch {
+	align-items: stretch;
+}
+
+.saw-grid-buttons-align-left {
+	align-items: flex-start;
+}
+
+.saw-grid-buttons-align-center {
+	align-items: center;
+}
+
+.saw-grid-buttons-align-right {
+	align-items: flex-end;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-left {
+	justify-content: flex-start;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-center {
+	justify-content: center;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-right {
+	justify-content: flex-end;
+}
+
+.saw-grid-buttons-align-stretch .saw-grid-sample-form,
+.saw-grid-buttons-align-stretch .saw-grid-view-product-button {
+	width: 100%;
+}
+
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-sample-form,
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-sample-button,
+.saw-grid-product-actions:not(.saw-grid-buttons-align-stretch) .saw-grid-view-product-button {
+	width: auto;
+}
+
+.saw-grid-buttons-inline.saw-grid-buttons-align-stretch .saw-grid-sample-form,
+.saw-grid-buttons-inline.saw-grid-buttons-align-stretch .saw-grid-view-product-button {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.saw-grid-sample-form {
+	margin: 0;
+}
+
+.saw-grid-sample-button,
+.saw-grid-view-product-button {
+	width: 100%;
+}
+
+.saw-grid-view-product-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 42px;
+	padding: 12px 18px;
+	border: 1px solid #1f2937;
+	border-radius: 4px;
+	background: transparent;
+	color: #1f2937;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saw-grid-view-product-button:hover,
+.saw-grid-view-product-button:focus {
+	background: #1f2937;
+	border-color: #1f2937;
+	color: #ffffff;
+}
+
+.saw-grid-product-hidden[hidden] {
+	display: none;
+}
+
+.saw-grid-load-more-wrap {
+	display: flex;
+	justify-content: center;
+	margin: 28px 0 0;
+}
+
+.saw-grid-load-more-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 12px 24px;
+	border: 1px solid #1f2937;
+	border-radius: 4px;
+	background: #1f2937;
+	color: #ffffff;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saw-grid-load-more-button:hover,
+.saw-grid-load-more-button:focus {
+	background: #111827;
+	border-color: #111827;
+	color: #ffffff;
+}
+
+.saw-grid-load-more-button.is-loading,
+.saw-grid-load-more-button:disabled {
+	cursor: wait;
+	opacity: 0.72;
+}
+
+@media (max-width: 900px) {
+	.saw-sample-product-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 600px) {
+	.saw-sample-product-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
 .saw-editor-notice {
 	padding: 12px;
 	border: 1px dashed #9ca3af;

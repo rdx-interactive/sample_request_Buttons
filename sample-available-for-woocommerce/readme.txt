@@ -5,7 +5,7 @@ Tags: woocommerce, elementor, sample request, product button
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.13
+Stable tag: 1.0.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Sample Available for WooCommerce lets store admins mark products as sample-reque
 
 Admins can also upload or select a Product Info PDF for each product. When a PDF is available, customers can download it through the Product Info PDF Button Elementor widget, the Product Info hook shortcode, or the optional automatic frontend button.
 
-The plugin also includes Elementor widgets named Request a Sample and Product Info PDF Button. Each widget can use the current product context or a selected product ID. The Request a Sample widget only renders the sample request button, and the Product Info PDF Button widget only renders the PDF download button with full Elementor controls for visibility, text, icon, alignment, margin, padding, width, minimum width, minimum height, typography, border, radius, colors, shadow, and hover styles.
+The plugin also includes Elementor widgets named Request a Sample, Product Info PDF Button, and Sample Product Grid. Button widgets can use the current product context or a selected product ID. The Sample Product Grid can show all sample-enabled products with a styled Load More control. The Request a Sample widget only renders the sample request button, and the Product Info PDF Button widget only renders the PDF download button with full Elementor controls for visibility, text, icon, alignment, margin, padding, width, minimum width, minimum height, typography, border, radius, colors, shadow, and hover styles.
 
 The automatic single product buttons can be controlled from WooCommerce > Sample Request. Request a Sample is enabled by default, while the default Product Info PDF button is disabled by default so Elementor widget users can place it manually. Request button style can be managed globally from WooCommerce > Sample Request or per product from the Sample Button Style box on the product edit screen.
 
@@ -34,13 +34,18 @@ Hook editors can use these customizable shortcodes:
 3. Open a WooCommerce product and check Sample Available in the Product data > General tab.
 4. Upload or select a product PDF from the Product Info PDF box when needed.
 5. Style the automatic button globally from WooCommerce > Sample Request or per product from Sample Button Style.
-6. Use the default frontend buttons or add the Request a Sample and Product Info PDF Button Elementor widgets to a product template.
+6. Use the default frontend buttons or add the Request a Sample, Product Info PDF Button, and Sample Product Grid Elementor widgets to a product template.
 
 == Security Notes ==
 
 The plugin uses WordPress nonces for request submission, a hidden honeypot field, rate limiting, capability checks for admin saves, sanitized input, escaped output, PDF MIME validation for media-library attachments, and a hidden zero-cost WooCommerce placeholder product for cart entries. It does not include remote calls, dynamic code execution, or executable asset generation.
 
 == Changelog ==
+
+= 1.0.19 =
+* Restored the Sample Product Grid Elementor widget.
+* Removed the 48-product cap so the grid can query all sample-enabled products.
+* Added Load More controls with loading text, batch size, and Elementor style controls.
 
 = 1.0.13 =
 * Stopped the Request a Sample Elementor widget from also rendering the Download Product Info button.

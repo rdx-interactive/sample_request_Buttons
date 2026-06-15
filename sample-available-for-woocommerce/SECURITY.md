@@ -1,6 +1,6 @@
 # Security Notes
 
-Version: 1.0.13
+Version: 1.0.19
 
 This plugin is intentionally small and does not make remote requests or execute dynamic code. Product PDFs are selected from the WordPress media library and validated as PDF attachments before display. Sample requests are protected with:
 

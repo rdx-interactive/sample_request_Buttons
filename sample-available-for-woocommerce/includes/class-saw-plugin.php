@@ -133,6 +133,7 @@ final class SAW_Plugin {
 		wp_register_script( 'saw-frontend', false, array(), SAW_VERSION, true );
 		wp_enqueue_script( 'saw-frontend' );
 		wp_add_inline_script( 'saw-frontend', $this->get_frontend_popup_script() );
+		wp_add_inline_script( 'saw-frontend', $this->get_frontend_grid_script() );
 	}
 
 	/**
@@ -1661,6 +1662,15 @@ final class SAW_Plugin {
 	}
 
 	/**
+	 * Build frontend product grid Load More script.
+	 *
+	 * @return string
+	 */
+	private function get_frontend_grid_script() {
+		return 'document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".saw-sample-product-grid-wrap").forEach(function(wrap){var button=wrap.querySelector(".saw-grid-load-more-button");if(!button){return;}var text=button.querySelector(".elementor-button-text")||button;var defaultText=text.textContent;var loadingText=button.getAttribute("data-saw-loading-text")||defaultText;var batch=parseInt(wrap.getAttribute("data-saw-grid-batch"),10);if(!batch||batch<1){batch=12;}function hiddenItems(){return Array.prototype.slice.call(wrap.querySelectorAll(".saw-grid-product-hidden"));}function revealNext(){var items=hiddenItems().slice(0,batch);items.forEach(function(item){item.hidden=false;item.classList.remove("saw-grid-product-hidden");});if(!hiddenItems().length){var holder=button.closest(".saw-grid-load-more-wrap");if(holder){holder.parentNode.removeChild(holder);}}}button.addEventListener("click",function(){button.disabled=true;button.classList.add("is-loading");text.textContent=loadingText;window.setTimeout(function(){revealNext();button.disabled=false;button.classList.remove("is-loading");if(document.body.contains(button)){text.textContent=defaultText;}},180);});});});';
+	}
+
+	/**
 	 * Build safe cart item data from the source product.
 	 *
 	 * @param WC_Product $product Source product.
@@ -1870,8 +1880,10 @@ final class SAW_Plugin {
 
 		require_once SAW_PLUGIN_DIR . 'includes/class-saw-elementor-widget.php';
 		require_once SAW_PLUGIN_DIR . 'includes/class-saw-product-info-elementor-widget.php';
+		require_once SAW_PLUGIN_DIR . 'includes/class-saw-sample-product-grid-elementor-widget.php';
 
 		$widgets_manager->register( new SAW_Elementor_Widget() );
 		$widgets_manager->register( new SAW_Product_Info_Elementor_Widget() );
+		$widgets_manager->register( new SAW_Sample_Product_Grid_Elementor_Widget() );
 	}
 }
